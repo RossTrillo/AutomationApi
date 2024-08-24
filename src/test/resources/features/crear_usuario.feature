@@ -1,8 +1,7 @@
-Feature: Crear usuario PetStore
+Feature: Crear nueva orden en PetStore
 
-  @test1
-  Scenario: Crear usuario
-
-    When creo el usuario con username "jperez", firstname "Juan", lastname "Perez"
+  @crearOrden
+  Scenario: Crear una nueva orden con un petId válido
+    Given consulto si el petId "1" existe
+    When creo una nueva orden con petId "1", quantity 2, y status "placed"
     Then el código de respuesta es 200
-    And el type es "unknown"
