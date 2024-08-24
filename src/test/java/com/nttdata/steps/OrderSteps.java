@@ -1,7 +1,10 @@
 package com.nttdata.steps;
+import org.junit.Assert;
+
 
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
+import org.hamcrest.Matchers;
 
 public class OrderSteps {
 
@@ -19,7 +22,7 @@ public class OrderSteps {
                 .log().all()
                 .extract()
                 .statusCode();
-        return statusCode == 200;
+            return statusCode == 200;
     }
 
     @Step("Crear una nueva orden con petId {0}, quantity {1}, y status {2}")
@@ -41,6 +44,7 @@ public class OrderSteps {
                 .log().all()
                 .statusCode(200);
     }
+
     @Step("Validar el código de respuesta {0}")
     public void validateResponseCode(int statusCode) {
         SerenityRest.lastResponse().then().statusCode(statusCode);
@@ -59,5 +63,9 @@ public class OrderSteps {
                 .statusCode(200);
     }
 
-
+    @Step("Validar que el cuerpo de la respuesta no esté vacío")
+    public void validateResponseBodyNotEmpty() {
+        String responseBody = SerenityRest.lastResponse().getBody().asString();
+        Assert.assertFalse("El cuerpo de la respuesta está vacío", responseBody.trim().isEmpty());
+    }
 }

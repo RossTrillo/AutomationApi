@@ -1,6 +1,7 @@
 package com.nttdata.glue;
 
 import com.nttdata.steps.OrderSteps;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -11,7 +12,6 @@ public class OrderStepsDefs {
 
     @Steps
     OrderSteps orderSteps;
-
 
     @Given("consulto si el petId {string} existe")
     public void consultoSiElPetIdExiste(String petId) {
@@ -39,5 +39,8 @@ public class OrderStepsDefs {
         orderSteps.consultOrderById(orderId);
     }
 
-
+    @And("el cuerpo de la respuesta no está vacío")
+    public void elCuerpoDeLaRespuestaNoEstaVacio() {
+        orderSteps.validateResponseBodyNotEmpty();
+    }
 }
